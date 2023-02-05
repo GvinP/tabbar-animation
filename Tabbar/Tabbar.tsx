@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { SafeAreaView, StyleSheet, View } from "react-native";
 import Tab from "./Tab";
 import Compass from "./icons/Compass";
@@ -7,6 +7,7 @@ import Camera from "./icons/Camera";
 import Bell from "./icons/Bell";
 import User from "./icons/User";
 import { ICON_SIZE, PADDING, SEGMENT } from "./icons/Constants";
+import { useSharedValue } from "react-native-reanimated";
 
 const tabs = [
   { icon: <Compass /> },
@@ -33,14 +34,16 @@ const styles = StyleSheet.create({
 });
 
 export default () => {
-  const [active, setActive] = useState(0)
+  const active = useSharedValue(0);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.tabs}>
         {tabs.map(({ icon }, index) => (
           <View key={index} style={styles.tab}>
             <Tab
-              onPress={() => setActive(index)}
+              onPress={() => {
+                active.value = index;
+              }}
               {...{ active, index }}
             >
               {icon}
