@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { SafeAreaView, StyleSheet, View } from "react-native";
 import Tab from "./Tab";
 import Compass from "./icons/Compass";
@@ -35,21 +35,25 @@ const styles = StyleSheet.create({
 
 export default () => {
   const active = useSharedValue(0);
+  const [direction, setDirection] = useState<"ltr" | "rtl">("ltr");
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.tabs}>
-        {tabs.map(({ icon }, index) => (
-          <View key={index} style={styles.tab}>
-            <Tab
-              onPress={() => {
-                active.value = index;
-              }}
-              {...{ active, index }}
-            >
-              {icon}
-            </Tab>
-          </View>
-        ))}
+        {tabs.map(({ icon }, index) => {
+          return (
+            <View key={index} style={styles.tab}>
+              <Tab
+                onPress={() => {
+                  setDirection(active.value > index ? "rtl" : "ltr");
+                  active.value = index;
+                }}
+                {...{ active, index, direction }}
+              >
+                {icon}
+              </Tab>
+            </View>
+          );
+        })}
       </View>
     </SafeAreaView>
   );
