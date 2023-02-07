@@ -24,7 +24,7 @@ export default ({ children, active, index, onPress, direction }: TabProps) => {
   }, [active.value]);
   const style = useAnimatedStyle(() => {
     return {
-      width: withTiming(isActive.value ? ICON_SIZE : 0, { duration: 1000 }),
+      width: withTiming(isActive.value ? ICON_SIZE : 0, { duration: 500 }),
     };
   });
   return (

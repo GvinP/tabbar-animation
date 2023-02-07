@@ -8,6 +8,7 @@ import Bell from "./icons/Bell";
 import User from "./icons/User";
 import { ICON_SIZE, PADDING, SEGMENT } from "./icons/Constants";
 import { useSharedValue } from "react-native-reanimated";
+import Particulars from "./Particulars";
 
 const tabs = [
   { icon: <Compass /> },
@@ -42,6 +43,7 @@ export default () => {
         {tabs.map(({ icon }, index) => {
           return (
             <View key={index} style={styles.tab}>
+              <Particulars {...{ direction, active }} />
               <Tab
                 onPress={() => {
                   setDirection(active.value > index ? "rtl" : "ltr");
